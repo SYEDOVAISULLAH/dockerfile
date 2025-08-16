@@ -1,23 +1,23 @@
-# Use n8n official image as base
-FROM n8nio/n8n:latest
+# Use the Debian-based n8n image, not Alpine
+FROM n8nio/n8n:latest-debian
+
+USER root
 
 # Install dependencies required for Chromium
-USER root
 RUN apt-get update && apt-get install -y \
     wget \
+    gnupg \
     ca-certificates \
     fonts-liberation \
     libasound2 \
-    libatk-bridge2.0-0 \
     libatk1.0-0 \
     libcups2 \
     libdbus-1-3 \
     libdrm2 \
     libgbm1 \
-    libgtk-3-0 \
+    libglib2.0-0 \
     libnspr4 \
     libnss3 \
-    libx11-xcb1 \
     libxcomposite1 \
     libxdamage1 \
     libxfixes3 \
@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
     libxshmfence1 \
     libxss1 \
     libxtst6 \
-    xvfb \
+    xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Playwright with Chromium only
